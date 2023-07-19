@@ -1,6 +1,5 @@
-//Color schema
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
 const ColorSchema = new Schema(
   {
@@ -18,5 +17,4 @@ const ColorSchema = new Schema(
 );
 
 const Color = mongoose.model("Color", ColorSchema);
-
 export default Color;

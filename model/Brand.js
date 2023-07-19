@@ -1,6 +1,5 @@
-//Brand schema
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
 const BrandSchema = new Schema(
   {
@@ -24,5 +23,4 @@ const BrandSchema = new Schema(
 );
 
 const Brand = mongoose.model("Brand", BrandSchema);
-
 export default Brand;

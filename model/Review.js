@@ -1,6 +1,5 @@
-//Review Schema
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
 const ReviewSchema = new Schema(
   {
@@ -31,5 +30,4 @@ const ReviewSchema = new Schema(
 );
 
 const Review = mongoose.model("Review", ReviewSchema);
-
 export default Review;

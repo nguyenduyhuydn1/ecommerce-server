@@ -1,6 +1,5 @@
-//category schema
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
 const CategorySchema = new Schema(
   {
@@ -28,5 +27,4 @@ const CategorySchema = new Schema(
 );
 
 const Category = mongoose.model("Category", CategorySchema);
-
 export default Category;

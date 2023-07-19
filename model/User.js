@@ -1,10 +1,9 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
-import bcrypt from 'bcryptjs';
 
 
 
-const userSchema = new Schema({
+const UserSchema = new Schema({
     fullname: {
         type: String,
         require: true,
@@ -92,5 +91,5 @@ const userSchema = new Schema({
 //     return resettoken;
 // };
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', UserSchema);
 export default User;

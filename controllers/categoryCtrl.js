@@ -9,14 +9,15 @@ import Category from "../model/Category.js";
 // @access  Private/Admin
 
 export const createCategoryCtrl = asyncHandler(async (req, res) => {
-    const { name, image } = req.body;
+    const { name } = req.body;
+    if (!name) throw new Error('pls give me name of category');
 
     const categoryExists = await Category.findOne({ name });
     if (categoryExists) throw new Error('category already exists');
 
     const category = await Category.create({
         name: name.toLowerCase(),
-        image,
+        image: req.file.path,
         user: req.userAuthId
     });
 

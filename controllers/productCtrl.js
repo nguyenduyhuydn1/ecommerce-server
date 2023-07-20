@@ -10,8 +10,8 @@ import Brand from "../model/Brand.js";
 // @access  Private/Admin
 
 export const createProductCtrl = asyncHandler(async (req, res) => {
-    const { name, description, brand, category, sizes, colors, images, price, totalQty } = req.body;
-
+    const { name, description, brand, category, sizes, colors, price, totalQty } = req.body;
+    let files = req.files?.map(v => v.path);
     //check product exists
     const productExists = await Product.findOne({ name });
     if (productExists) throw new Error('product already exists');
@@ -24,6 +24,8 @@ export const createProductCtrl = asyncHandler(async (req, res) => {
     const brandFound = await Brand.findOne({ name: brand });
     if (!brandFound) throw new Error('brand is not found, please create a brand first');
 
+
+
     const product = await Product.create({
         name,
         description,
@@ -32,7 +34,7 @@ export const createProductCtrl = asyncHandler(async (req, res) => {
         sizes,
         colors,
         user: req.userAuthId,
-        images,
+        images: files,
         price,
         totalQty
     });

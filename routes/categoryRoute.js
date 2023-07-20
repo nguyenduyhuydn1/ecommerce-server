@@ -2,10 +2,11 @@ import express from "express";
 
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
 import { createCategoryCtrl, deletecategoryCtrl, getCategoriesCtrl, getCategoryIdCtrl, updateCategoryCtrl } from "../controllers/categoryCtrl.js";
+import upload from "../config/fileUpload.js";
 
 const categoriesRoutes = express.Router();
 
-categoriesRoutes.post('/', isLoggedIn, createCategoryCtrl);
+categoriesRoutes.post('/', isLoggedIn, upload('categories').single('file'), createCategoryCtrl);
 categoriesRoutes.get('/', getCategoriesCtrl);
 categoriesRoutes.get('/:id', getCategoryIdCtrl);
 categoriesRoutes.put('/:id', isLoggedIn, updateCategoryCtrl);

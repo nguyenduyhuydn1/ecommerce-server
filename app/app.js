@@ -1,6 +1,7 @@
 import dotevn from 'dotenv';
 dotevn.config();
 import express from "express";
+import cors from 'cors';
 
 import dbConnect from "../config/db.js";
 import { globalErrHandler, notFound } from '../middlewares/globalErrHandler.js';
@@ -19,7 +20,7 @@ dbConnect();
 const app = express();
 
 app.use(express.json());
-
+app.use(cors());
 
 // routes
 app.use('/api/v1/users/', userRoutes);

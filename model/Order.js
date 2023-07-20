@@ -1,8 +1,10 @@
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
+
 //Generate random numbers for order
 const randomTxt = Math.random().toString(36).substring(7).toLocaleUpperCase();
 const randomNumbers = Math.floor(1000 + Math.random() * 90000);
+
 const OrderSchema = new Schema(
   {
     user: {
@@ -13,6 +15,8 @@ const OrderSchema = new Schema(
     orderItems: [
       {
         type: Object,
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: 'Product',
         required: true,
       },
     ],
@@ -56,7 +60,5 @@ const OrderSchema = new Schema(
   }
 );
 
-//compile to form model
 const Order = mongoose.model("Order", OrderSchema);
-
 export default Order;

@@ -68,9 +68,9 @@ const ProductSchema = new Schema(
   }
 );
 
-ProductSchema.virtual("qtyLeft").get(function () {
-  return this.totalQty - this.totalSold;
-});
+// ProductSchema.virtual("qtyLeft").get(function () {
+//   return this.totalQty - this.totalSold;
+// });
 
 ProductSchema.virtual("totalReviews").get(function () {
   return this.reviews.length;

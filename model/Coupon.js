@@ -1,6 +1,5 @@
-//coupon model
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
 const CouponSchema = new Schema(
   {

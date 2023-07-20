@@ -66,7 +66,42 @@ export const loginUserCtrl = asyncHandler(async (req, res) => {
 
 export const getUserProfileCtrl = asyncHandler(async (req, res) => {
 
+
+    const user = await User.findById(req.userAuthId).populate("orders");
     res.json({
-        msg: "ASd"
+        status: "success",
+        message: "User profile fetched successfully",
+        user,
+    });
+});
+
+
+
+// @desc    Update user shipping address
+// @route   PUT /api/v1/users/update/shipping
+// @access  Private
+
+export const updateShippingAddresctrl = asyncHandler(async (req, res) => {
+    const { firstName, lastName, address, city, postalCode, province, phone, country } = req.body;
+    let checkShipping = false;
+    if (firstName && lastName && address && city && postalCode && province && phone && country) checkShipping = true;
+
+    const user = await User.findByIdAndUpdate(
+        req.userAuthId,
+        {
+            shippingAddress: {
+                firstName, lastName, address, city, postalCode, province, phone, country,
+            },
+            hasShippingAddress: checkShipping,
+        },
+        {
+            new: true,
+        }
+    );
+
+    res.json({
+        status: "success",
+        message: "User shipping address updated successfully",
+        user,
     });
 });

@@ -12,6 +12,7 @@ import brandRoutes from '../routes/brandRoute.js';
 import colorRoutes from '../routes/colorRoute.js';
 import reviewRoutes from '../routes/reviewRoute.js';
 import orderRoutes from '../routes/orderRoute.js';
+import couponsRoutes from '../routes/couponsRoute.js';
 
 //connect database
 dbConnect();
@@ -24,10 +25,11 @@ app.use(express.json());
 app.use('/api/v1/users/', userRoutes);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/categories', categoriesRoutes);
-app.use('/api/v1/brand', brandRoutes);
-app.use('/api/v1/color', colorRoutes);
-app.use('/api/v1/review', reviewRoutes);
-app.use('/api/v1/order', orderRoutes);
+app.use('/api/v1/brands', brandRoutes);
+app.use('/api/v1/colors', colorRoutes);
+app.use('/api/v1/reviews', reviewRoutes);
+app.use('/api/v1/orders', orderRoutes);
+app.use('/api/v1/coupons', couponsRoutes);
 
 
 //error middleware

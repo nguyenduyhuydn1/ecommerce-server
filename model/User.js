@@ -16,6 +16,11 @@ const UserSchema = new Schema({
         type: String,
         require: true,
     },
+    // card: {
+    //     type: Object,
+    //     require: true,
+    //     ref: 'Card',
+    // },
     orders: [
         {
             type: mongoose.Schema.Types.ObjectId,

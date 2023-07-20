@@ -32,7 +32,7 @@ const CouponSchema = new Schema(
   }
 );
 
-//coupon is expired
+//handle coupon is expored
 CouponSchema.virtual("isExpired").get(function () {
   return this.endDate < Date.now();
 });
@@ -45,7 +45,8 @@ CouponSchema.virtual("daysLeft").get(function () {
   return daysLeft;
 });
 
-//validation
+
+//handle validation
 CouponSchema.pre("validate", function (next) {
   if (this.endDate < this.startDate) {
     next(new Error("End date cannot be less than the start date"));
@@ -75,5 +76,4 @@ CouponSchema.pre("validate", function (next) {
 });
 
 const Coupon = mongoose.model("Coupon", CouponSchema);
-
 export default Coupon;

@@ -3,6 +3,7 @@ import asyncHandler from "express-async-handler";
 import Order from "../model/Order.js";
 import User from "../model/User.js";
 import Product from "../model/Product.js";
+import Coupon from "../model/Coupon.js";
 
 
 
@@ -11,6 +12,17 @@ import Product from "../model/Product.js";
 // @access  Private/Admin
 
 export const createOrderCtrl = asyncHandler(async (req, res) => {
+    const { coupon } = req.query;
+    let couponFound;
+    let discount;
+    if (coupon) {
+        couponFound = await Coupon.findOne({ code: code.toUpperCase() });
+        if (!couponFound) throw new Error('Coupon is not exists');
+        if (couponFound.isExpired) throw new Error('Coupon is expired');
+        discount = couponFound.discount / 100;
+    }
+
+
     const { shippingAddress, orderItems, totalPrice } = req.body;
     if (orderItems.length <= 0) throw new Error('No Order Item');
 
@@ -20,7 +32,7 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
     const order = await Order.create({
         shippingAddress,
         orderItems,
-        totalPrice,
+        totalPrice: couponFound ? (totalPrice - totalPrice * discount) : totalPrice,
         user: user._id
     });
 

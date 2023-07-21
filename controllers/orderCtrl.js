@@ -69,72 +69,125 @@ export const createOrderCtrl = asyncHandler(async (req, res) => {
 
 
 
-// @desc    Get All Order
-// @route   GET /api/v1/Order
-// @access  Public
+// // @desc    Get All Order
+// // @route   GET /api/v1/Order
+// // @access  Public
 
-export const getAllOrderCtrl = asyncHandler(async (req, res) => {
-    let Order = await Order.find();
+// export const getAllOrderCtrl = asyncHandler(async (req, res) => {
+//     let order = await Order.find();
 
-    res.json({
-        status: 'success',
-        message: 'fetch Order successfully',
-        Order
-    });
-});
-
-
-
-// @desc    Get Single Order 
-// @route   GET /api/v1/Order:id
-// @access  Public
-
-export const getOrderIdCtrl = asyncHandler(async (req, res) => {
-    const { id } = req.params;
-
-    const Order = await Order.findById(id);
-    if (!Order) throw new Error('Order is not found');
-
-    res.json({
-        status: 'success',
-        message: 'fetch Order Id successfully',
-        Order
-    });
-});
+//     res.json({
+//         status: 'success',
+//         message: 'fetch Order successfully',
+//         order
+//     });
+// });
 
 
-// @desc    Update Order 
-// @route   PUT /api/v1/Order:id
-// @access  Private/Admin
 
-export const updateOrderCtrl = asyncHandler(async (req, res) => {
-    const { id } = req.params;
-    const { name } = req.body;
+// // @desc    Get Single Order 
+// // @route   GET /api/v1/Order:id
+// // @access  Public
 
-    const Order = await Order.findByIdAndUpdate(id, { name: name.toLowerCase() }, { new: true });
-    if (!Order) throw new Error('Order is not found');
+// export const getOrderIdCtrl = asyncHandler(async (req, res) => {
+//     const { id } = req.params;
 
-    res.json({
-        status: 'success',
-        message: 'Order updated successfully',
-        Order
-    });
-});
+//     const order = await Order.findById(id);
+//     if (!order) throw new Error('Order is not found');
+
+//     res.json({
+//         status: 'success',
+//         message: 'fetch Order Id successfully',
+//         order
+//     });
+// });
+
+
+// // @desc    Update Order 
+// // @route   PUT /api/v1/Order:id
+// // @access  Private/Admin
+
+// export const updateOrderCtrl = asyncHandler(async (req, res) => {
+//     const { id } = req.params;
+//     const { name } = req.body;
+
+//     const order = await Order.findByIdAndUpdate(id, { name: name.toLowerCase() }, { new: true });
+//     if (!order) throw new Error('Order is not found');
+
+//     res.json({
+//         status: 'success',
+//         message: 'Order updated successfully',
+//         order
+//     });
+// });
 
 
 // @desc    Delete Order 
 // @route   Delete /api/v1/Order:id
 // @access  Private/Admin
 
-export const deleteOrderCtrl = asyncHandler(async (req, res) => {
-    const { id } = req.params;
+// export const deleteOrderCtrl = asyncHandler(async (req, res) => {
+//     const { id } = req.params;
 
-    const Order = await Order.findByIdAndDelete(id);
-    if (!Order) throw new Error('Order is not found');
+//     const order = await Order.findByIdAndDelete(id);
+//     if (!order) throw new Error('Order is not found');
 
-    res.json({
+//     res.json({
+//         status: 'success',
+//         message: 'Order deleted successfully',
+//         order
+//     });
+// });
+
+
+
+
+
+// @desc    Get sales sum of orders 
+// @route   Delete /api/v1/Order/sales
+// @access  Private/Admin
+
+export const getOrderStatsCtrl = asyncHandler(async (req, res) => {
+    //get order stats
+    const orders = await Order.aggregate([{
+        $group: {
+            _id: null,
+            minimumSale: {
+                $min: "$totalPrice",
+            },
+            totalSales: {
+                $sum: "$totalPrice",
+            },
+            maxSale: {
+                $max: "$totalPrice",
+            },
+            avgSale: {
+                $avg: "$totalPrice",
+            },
+        },
+    }]);
+
+    const date = new Date();
+    const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const saleToday = await Order.aggregate([{
+        $match: {
+            createdAt: {
+                $gte: today,
+            },
+        },
+    },
+    {
+        $group: {
+            _id: null,
+            totalSales: {
+                $sum: "$totalPrice",
+            },
+        },
+    }]);
+
+    res.status(200).json({
         status: 'success',
-        message: 'Order deleted successfully',
-        Order
+        message: 'fetch sales successfully',
+        orders
     });
 });

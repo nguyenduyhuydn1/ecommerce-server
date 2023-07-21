@@ -24,8 +24,6 @@ export const createProductCtrl = asyncHandler(async (req, res) => {
     const brandFound = await Brand.findOne({ name: brand });
     if (!brandFound) throw new Error('brand is not found, please create a brand first');
 
-
-
     const product = await Product.create({
         name,
         description,

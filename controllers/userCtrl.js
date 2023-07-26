@@ -82,7 +82,7 @@ export const getUserProfileCtrl = asyncHandler(async (req, res) => {
 // @access  Private
 
 export const updateShippingAddresctrl = asyncHandler(async (req, res) => {
-    const { firstName, lastName, address, city, postalCode, province, phone, country } = req.body;
+    const { firstName, lastName, address, postalCode, phone, country } = req.body;
     let checkShipping = false;
     if (firstName && lastName && address && city && postalCode && province && phone && country) checkShipping = true;
 
@@ -90,7 +90,7 @@ export const updateShippingAddresctrl = asyncHandler(async (req, res) => {
         req.userAuthId,
         {
             shippingAddress: {
-                firstName, lastName, address, city, postalCode, province, phone, country,
+                firstName, lastName, address, postalCode, phone, country,
             },
             hasShippingAddress: checkShipping,
         },

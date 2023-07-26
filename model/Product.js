@@ -22,7 +22,8 @@ const ProductSchema = new Schema(
       ref: "Category",
       required: true,
     },
-    sizes: {
+    sizes:
+    {
       type: [String],
       enum: ["S", "M", "L", "XL", "XXL"],
       required: true,
@@ -82,7 +83,7 @@ ProductSchema.virtual("averageRating").get(function () {
   this.reviews.forEach((review) => {
     total += review.rating;
   });
-
+  if (total == 0) return total;
   const averageRating = (total / this.reviews.length).toFixed(1);
   return averageRating;
 });

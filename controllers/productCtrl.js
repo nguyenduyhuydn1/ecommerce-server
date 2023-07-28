@@ -11,6 +11,8 @@ import Brand from "../model/Brand.js";
 
 export const createProductCtrl = asyncHandler(async (req, res) => {
     const { name, description, brand, category, sizes, colors, price, totalQty } = req.body;
+
+
     let files = req.files?.map(v => v.path);
     //check product exists
     const productExists = await Product.findOne({ name });

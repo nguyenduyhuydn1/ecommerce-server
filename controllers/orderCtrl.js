@@ -4,6 +4,22 @@ import Order from "../model/Order.js";
 import User from "../model/User.js";
 import Product from "../model/Product.js";
 import Coupon from "../model/Coupon.js";
+import { createCharges, createCustomer } from "../services/stripe.js";
+
+
+
+
+export const test = asyncHandler(async (req, res) => {
+    let a = await createCustomer("xxxxxxxxxxxx@gmail.com", "xxxxxxxxxxxx");
+
+    let b = await createCharges('', a.customer.id);
+    createCharges;
+    res.json({
+        status: "ok",
+        check: a,
+        check2: b
+    });
+});
 
 
 

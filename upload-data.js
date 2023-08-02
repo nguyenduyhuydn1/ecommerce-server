@@ -34,8 +34,4 @@ import fs from "fs";
         console.log(res.data);
 
     }
-
-
-
-
 })();

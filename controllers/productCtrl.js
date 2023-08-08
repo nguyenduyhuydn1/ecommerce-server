@@ -39,6 +39,9 @@ export const createProductCtrl = asyncHandler(async (req, res) => {
         totalQty
     });
 
+    productExists.user = req.userAuthId;
+    await productExists.save();
+
     // save product to category
     categoryFound.products.push(product._id);
     await categoryFound.save();

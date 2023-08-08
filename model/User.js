@@ -41,30 +41,31 @@ const UserSchema = new Schema({
         default: false
     },
     shippingAddress: {
-        firstName: {
+        fullName: {
             type: String,
-        },
-        lastName: {
-            type: String,
+            default: '',
         },
         address: {
             type: String,
+            default: '',
         },
         city: {
             type: String,
+            default: '',
         },
         postalCode: {
             type: String,
-        },
-        province: {
-            type: String,
+            default: '',
         },
         country: {
             type: String,
+            default: '',
         },
         phone: {
             type: String,
-        }
+            default: '',
+        },
+
     }
 }, {
     timestamps: true,

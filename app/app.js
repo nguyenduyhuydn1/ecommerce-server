@@ -14,6 +14,7 @@ import colorRoutes from '../routes/colorRoute.js';
 import reviewRoutes from '../routes/reviewRoute.js';
 import orderRoutes from '../routes/orderRoute.js';
 import couponsRoutes from '../routes/couponsRoute.js';
+import NotificationsRoutes from '../routes/notificationsRoute.js';
 
 //connect database
 dbConnect();
@@ -31,6 +32,7 @@ app.use('/api/v1/colors', colorRoutes);
 app.use('/api/v1/reviews', reviewRoutes);
 app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/coupons', couponsRoutes);
+app.use('/api/v1/notifications', NotificationsRoutes);
 
 
 //error middleware
